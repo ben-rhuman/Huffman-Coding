@@ -36,9 +36,7 @@ public class Huffman {
     public void makeFreqTable(){
         int temp;
         for(int i = 0; i < input.length(); i++){
-            //System.out.println((int)input.charAt(i));
-            //temp = (int)input.charAt(i) - 65;
-            freqTable[(int)input.charAt(i) - 65]++;
+            freqTable[(int)input.charAt(i) - 65]++;  //uses ASCII value of character in input to count occurances
         }
         System.out.println("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \\");
         for(int i = 0; i < freqTable.length; i++){
