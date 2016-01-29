@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey
+ * Based of code by Qing Yang
+ */
 
 import java.io.BufferedReader;
 import java.io.IOException;
