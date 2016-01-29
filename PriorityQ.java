@@ -7,27 +7,24 @@
 
 /**
  *
- * @author k28h885
+ * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey
+ * Based of code by Qing Yang
  */
-// priorityQ.java
-// demonstrates priority queue
-// to run this program: C>java PriorityQApp
-////////////////////////////////////////////////////////////////
+
 class PriorityQ
 {
 	// array in sorted order, from max at 0 to min at size-1
-	private int maxSize;
-	private long[] queArray;
+	private int maxSize = 28;
+	private Tree[] queArray;
 	private int nItems;
 	//-------------------------------------------------------------
-	public PriorityQ(int s) // constructor
+	public PriorityQ() // constructor
 	{
-		maxSize = s;
-		queArray = new long[maxSize];
+		queArray = new Tree[maxSize];
 		nItems = 0;
 	}
 	//-------------------------------------------------------------
-	public void insert(long item) // insert item
+	public void insert(Tree item) // insert item
 	{
 		int j;
 		if(nItems==0) // if no items,
@@ -36,7 +33,7 @@ class PriorityQ
 		{
 			for(j=nItems-1; j>=0; j--) // start at end,
 			{
-				if( item > queArray[j] ) // if new item larger,
+				if( item.root.iData > queArray[j].root.iData ) // if new item has a higher frequency
 					queArray[j+1] = queArray[j]; // shift upward
 				else // if smaller,
 					break; // done shifting
@@ -46,10 +43,10 @@ class PriorityQ
 		} // end else (nItems > 0)
 	} // end insert()
 	//-------------------------------------------------------------
-	public long remove() // remove minimum item
+	public Tree remove() // remove minimum item
 	{ return queArray[--nItems]; }
 	//-------------------------------------------------------------
-	public long peekMin() // peek at minimum item
+	public Tree peekMin() // peek at minimum item
 	{ return queArray[nItems-1]; }
 	//-------------------------------------------------------------
 	public boolean isEmpty() // true if queue is empty

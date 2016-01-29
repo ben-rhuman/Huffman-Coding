@@ -9,16 +9,21 @@
 import java.util.*;
 /**
  *
- * @author k28h885
+ * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey
+ * Based of code by Qing Yang
  */
 ////////////////////////////////////////////////////////////////
 class Tree
 {
-	private Node root; // first node of tree
+	public Node root; // first node of tree
 	// -------------------------------------------------------------
 	public Tree() // constructor
 	{ root = null; } // no nodes in tree yet
 	//-------------------------------------------------------------
+        
+        /**********We can use this to find the binary codes if a different
+         * traversal method doesn't work.**********/   
+        
 	public Node find(int key) // find node with given key
 	{ // (assumes non-empty tree)
 		Node current = root; // start at root
@@ -34,10 +39,10 @@ class Tree
 		return current; // found it
 	} // end find()
 	// -------------------------------------------------------------
-	public void insert(int id, double dd)
+	public void insert(int freq, char dd)
 	{
 		Node newNode = new Node(); // make new node
-		newNode.iData = id; // insert data
+		newNode.iData = freq; // insert data
 		newNode.dData = dd;
 		if(root==null) // no node in root
 			root = newNode;
@@ -48,7 +53,7 @@ class Tree
 			while(true) // (exits internally)
 			{
 				parent = current;
-				if(id < current.iData) // go left?
+				if(freq < current.iData) // go left?
 				{
 					current = current.leftChild;
 					if(current == null) // if end of the line,
