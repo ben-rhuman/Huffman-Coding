@@ -9,12 +9,13 @@ import java.util.Arrays;
 
 /**
  *
- * @author Ben
+ * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey
+ * Based of code by Qing Yang
  */
 public class Huffman {
 
     String input;
-    PriorityQ theQ;
+    PriorityQ theQ = new PriorityQ();
     int[] freqTable = new int[28]; 
     String[] codeTable;
     Tree huffTree;
@@ -25,9 +26,6 @@ public class Huffman {
         this.input = input;
         Arrays.fill(freqTable, 0);
         System.out.println(input);
-        char c = 'A';
-        int cc = (int)c - 65;
-        System.out.println(cc);
         makeFreqTable();
         queueTree();
         makeHuffmanTree();
@@ -46,7 +44,14 @@ public class Huffman {
     }
     
     public void queueTree(){
-        
+        for(int i = 0; i < freqTable.length; i++){
+            if(freqTable[i] > 0){
+                Tree t = new Tree();
+                t.insert(freqTable[i], (char)(i+65));
+                theQ.insert(t);  //It works first try!!!!
+            }
+        }
+        //Make combine tree here? or in makeHuffmanTree()
     }
     
     public void makeHuffmanTree(){
