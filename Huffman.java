@@ -15,7 +15,7 @@ public class Huffman {
     String input;
     PriorityQ theQ = new PriorityQ();
     int[] freqTable = new int[28];
-    String[] codeTable;
+    String[] codeTable = new String[28];
     Tree huffTree;
     String encoded;
     String decoded;
@@ -27,6 +27,7 @@ public class Huffman {
         makeFreqTable();
         queueTree();
         makeHuffmanTree();
+        makeCodeTable();
     }
 
     public void makeFreqTable() {
@@ -46,13 +47,12 @@ public class Huffman {
             if (freqTable[i] > 0) {
                 Tree t = new Tree();
                 t.insert(freqTable[i], (char) (i + 65));
-                theQ.insert(t);  //It works first try!!!!
+                theQ.insert(t);
             }
         }
     }
 
     public void makeHuffmanTree() {
-
         while (!theQ.isEmpty()) {
             Tree t = new Tree();
             Tree left = theQ.remove();
@@ -60,19 +60,25 @@ public class Huffman {
             t.insert(left.root.iData + right.root.iData, '+');
             t.root.leftChild = left.root;
             t.root.rightChild = right.root;
-            if(theQ.isEmpty()){
-                huffTree.root = t.root;
-            }else
+            if (theQ.isEmpty()) {
+                huffTree = t;
+            } else {
                 theQ.insert(t);
+            }
         }
     }
 
     public void makeCodeTable() {
-
+        for(int i = 0; i < freqTable.length; i++){
+            if(freqTable[i] > 0){
+                codeTable[i] = huffTree.find(freqTable[i]); // This find() method needs work and is not as useful as I originally thought. I realize why it cant work now
+                System.out.println((char)(i+65) + " " + codeTable[i]);
+            }
+        }
     }
 
     public void displayTree() {
-
+        huffTree.displayTree(); // Prints out tree for user to view
     }
 
     public void code() {
