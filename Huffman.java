@@ -27,7 +27,6 @@ public class Huffman {
         makeFreqTable();
         queueTree();
         makeHuffmanTree();
-        makeCodeTable();
     }
 
     public void makeFreqTable() {
@@ -68,21 +67,33 @@ public class Huffman {
         }
     }
 
-    public void makeCodeTable() {
-        for(int i = 0; i < freqTable.length; i++){
-            if(freqTable[i] > 0){
-                codeTable[i] = huffTree.find(freqTable[i]); // This find() method needs work and is not as useful as I originally thought. I realize why it cant work now
-                System.out.println((char)(i+65) + " " + codeTable[i]);
-            }
-        }
-    }
-
     public void displayTree() {
         huffTree.displayTree(); // Prints out tree for user to view
     }
 
-    public void code() {
+    private void findCode(Node localRoot, String code) {
+        if (localRoot.dData == '+') {
+            findCode(localRoot.leftChild, code + "0");
+            findCode(localRoot.rightChild, code + "1");
+        } else {
+            codeTable[(int) localRoot.dData - 65] = code;
+        }
+    }
 
+    public void code() {
+        encoded = "";
+        findCode(huffTree.root, encoded);
+        for (int i = 0; i < codeTable.length; i++) {
+            if (freqTable[i] > 0) {
+                System.out.println((char) (i + 65) + " " + codeTable[i]);
+            }
+        }
+        System.out.println("Coded message:");
+        for (int i = 0; i < input.length(); i++) {
+            encoded += codeTable[(int) input.charAt(i) - 65];
+        }
+
+        System.out.print("\n" + encoded + "\n");
     }
 
     public void decode() {
