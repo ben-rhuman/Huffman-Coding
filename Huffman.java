@@ -97,7 +97,24 @@ public class Huffman {
     }
 
     public void decode() {
+        Node current = huffTree.root;
+        decoded = "";
 
+        for (int i = 0; i < encoded.length(); i++) {
+            if (encoded.charAt(i) == '0') {
+                current = current.leftChild;
+                if (current.leftChild == null) {
+                    decoded += current.dData;
+                    current = huffTree.root;
+                }
+            } else {
+                current = current.rightChild;
+                if (current.rightChild == null) {
+                    decoded += current.dData;
+                    current = huffTree.root;
+                }
+            }
+        }
+        System.out.println("Decoded msg: \n" + decoded);
     }
-
 }
