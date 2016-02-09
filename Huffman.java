@@ -1,30 +1,27 @@
+/**
+ *
+ * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey 
+ * Based of code by Qing Yang
+ */
 
 import java.util.Arrays;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey Based of code by Qing Yang
- */
+////////////////////////////////////////////////////////////////
 public class Huffman {
 
-    String input;
-    PriorityQ theQ = new PriorityQ();
-    int[] freqTable = new int[28];
-    String[] codeTable = new String[28];
-    Tree huffTree;
-    String encoded;
+    String input; // Holds the unencoded raw user input
+    String encoded = "";
     String decoded;
+    int[] freqTable = new int[28]; // Holds the frequency of the 28 possible characters
+    String[] codeTable = new String[28]; //Holds the binary code assigned to each of the 28 possible characters
+    PriorityQ theQ = new PriorityQ(); //Intializes queue for use in tree building
+    Tree huffTree;
 
-    public Huffman(String input) {
+    public Huffman(String input) {  //Class constructor
         this.input = input;
-        Arrays.fill(freqTable, 0);
+        Arrays.fill(freqTable, 0);  //Intializes the frequency array data to 0's.
         System.out.println(input);
-        makeFreqTable();
+        makeFreqTable();  //Method calls makes frequency table and construct the huffman tree with user input data
         queueTree();
         makeHuffmanTree();
     }
@@ -36,12 +33,12 @@ public class Huffman {
         }
         System.out.println("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \\");
         for (int i = 0; i < freqTable.length; i++) {
-            System.out.print(freqTable[i] + " ");
+            System.out.print(freqTable[i] + " "); //Prints out frequency
         }
         System.out.print("\n");
     }
 
-    public void queueTree() {
+    public void queueTree() {   // Builds the queue along with all the subtrees that exist within.
         for (int i = 0; i < freqTable.length; i++) {
             if (freqTable[i] > 0) {
                 Tree t = new Tree();
@@ -51,7 +48,7 @@ public class Huffman {
         }
     }
 
-    public void makeHuffmanTree() {
+    public void makeHuffmanTree() { //Goes through the process of combining the two lowest priority subtrees and then replacing them within the queue until a single tree is left
         while (!theQ.isEmpty()) {
             Tree t = new Tree();
             Tree left = theQ.remove();
@@ -67,11 +64,11 @@ public class Huffman {
         }
     }
 
-    public void displayTree() {
+    public void displayTree() { // Calls the slightly modified display tree method from the Tree class
         huffTree.displayTree(); // Prints out tree for user to view
     }
 
-    private void findCode(Node localRoot, String code) {
+    private void findCode(Node localRoot, String code) { //Recursively traverses tree saving the leaf node locations as a string in their respective codeTable[] slot
         if (localRoot.dData == '+') {
             findCode(localRoot.leftChild, code + "0");
             findCode(localRoot.rightChild, code + "1");
@@ -80,8 +77,7 @@ public class Huffman {
         }
     }
 
-    public void code() {
-        encoded = "";
+    public void code() {    // Takes codeTable data and creates a coded string with the binary versions of the substrings within the user input
         findCode(huffTree.root, encoded);
         for (int i = 0; i < codeTable.length; i++) {
             if (freqTable[i] > 0) {
@@ -96,7 +92,7 @@ public class Huffman {
         System.out.print("\n" + encoded + "\n");
     }
 
-    public void decode() {
+    public void decode() { //Traverses tree based on direction given by the encoded string
         Node current = huffTree.root;
         decoded = "";
 

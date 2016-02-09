@@ -46,14 +46,8 @@ class PriorityQ
 	public Tree remove() // remove minimum item
 	{ return queArray[--nItems]; }
 	//-------------------------------------------------------------
-	public Tree peekMin() // peek at minimum item
-	{ return queArray[nItems-1]; }
-	//-------------------------------------------------------------
 	public boolean isEmpty() // true if queue is empty
 	{ return (nItems==0); }
-	//-------------------------------------------------------------
-	public boolean isFull() // true if queue is full
-	{ return (nItems == maxSize); }
 	//-------------------------------------------------------------
 } // end class PriorityQ
 ////////////////////////////////////////////////////////////////
