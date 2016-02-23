@@ -1,7 +1,7 @@
 /**
  *
  * @author Ben Rhuman, Isaac Sotelo, Brendan Tracey
- * Based of code by Qing Yang
+ * Based off code by Qing Yang
  */
 
 import java.io.BufferedReader;
@@ -14,7 +14,6 @@ class HuffmanApp
 	public static void main(String[] args) throws IOException
 	{
 		Huffman huff = null;
-		int value;
 		String str;
 
 		while(true)
